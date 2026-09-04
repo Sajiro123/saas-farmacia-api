@@ -1,0 +1,40 @@
+server:
+  port: 8082
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name: saas-farmacia-api
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+# Configuración de Base de Datos Central (Master) para resolver credenciales de tenants
+saas:
+  master:
+    datasource:
+      url: jdbc:postgresql://db.cbwpmluadnlgdrrwmhvf.supabase.co:5432/postgres?sslmode=require
+      username: postgres
+      password: 4xu9nwaa6xBGp0Xu
+      driver-class-name: org.postgresql.Driver
+      pool-name: FarmaciaMasterLookupPool
+      maximum-pool-size: 3
+      minimum-idle: 1
+
+# Mismo Secret JWT que saas-master-api para validar tokens
+jwt:
+  secret: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+
+# OpenAPI / Swagger
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
